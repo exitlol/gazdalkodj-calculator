@@ -1,0 +1,103 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <div class="row">
+        <div class="col no-padd">
+          {{player.name}}
+        </div>
+        <div class="col no-padd">
+          {{player.actualMoney}}
+        </div>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="container-flex">
+      <form class="example-form" [formGroup]="formGroup">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Jóváírás</mat-label>
+              <input type="number" min="0" matInput placeholder="Jóváírás értéke" formControlName="jovairas">
+            </mat-form-field>
+            <button mat-raised-button (click)="add()">Jóváír</button>
+            <mat-error>
+              <ng-container *ngIf="formGroup.hasError('required', 'jovairas')">
+                Érték megadása kötelező!
+              </ng-container>
+            </mat-error>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Terhelés</mat-label>
+              <input type="number" min="0" matInput placeholder="Terhelés értéke" formControlName="terheles">
+            </mat-form-field>
+            <button mat-raised-button (click)="subtract()">Terhelés</button>
+            <mat-error>
+              <ng-container *ngIf="formGroup.hasError('required', 'terheles')">
+                Érték megadása kötelező!
+              </ng-container>
+            </mat-error>
+          </div>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+  <div class="row space-evenly">
+    <button mat-raised-button (click)="addSevenPercent()">7%</button>
+    <button mat-raised-button (click)="addFifteenPercent()">15%</button>
+  </div>
+  <hr>
+  <!-- TODO checkbox radio helyett! -->
+  <div class="row space-evenly padding-t-b-1r">
+    <mat-checkbox [(ngModel)]="player.insurances.retirementInsurance">Nyugdíjbizt</mat-checkbox>
+    <mat-checkbox [(ngModel)]="player.insurances.childInsurance">Életbizt.</mat-checkbox>
+  </div>
+  <div class="row space-evenly padding-t-b-1r">
+    <mat-checkbox [(ngModel)]="player.insurances.homeInsurance">Lakásbizt.</mat-checkbox>
+    <mat-checkbox [(ngModel)]="player.insurances.casco">Casco</mat-checkbox>
+  </div>
+  <div class="row space-evenly padding-t-b-1r">
+    <mat-checkbox [(ngModel)]="player.hasMorgage">Lakáshitel</mat-checkbox>
+    <mat-checkbox [(ngModel)]="player.hasCarLeased">Autó hitel</mat-checkbox>
+  </div>
+  <ng-container *ngIf="player.hasMorgage || player.hasCarLeased">
+    <hr>
+    <form [formGroup]="leaseGroup" class="example-form">
+      <div class="row">
+        <div class="col">
+          <span>{{player.houseRepaymentLeft}}</span>
+          <mat-form-field class="example-full-width">
+            <mat-label>Ház törlesztés</mat-label>
+            <input type="number" min="0" matInput placeholder="Egyedi törlesztő érték" formControlName="houseRepay">
+          </mat-form-field>
+          <mat-error>
+            <ng-container *ngIf="formGroup.hasError('required', 'houseRepay')">
+              Érték megadása kötelező!
+            </ng-container>
+          </mat-error>
+          <div class="row space-between">
+            <button mat-raised-button (click)="repayHouse()">Törleszt</button>
+            <button mat-raised-button (click)="autoRepayHouse()">-90000</button>
+          </div>
+        </div>
+        <div class="col">
+          <span>{{player.carRepaymentLeft}}</span>
+          <mat-form-field class="example-full-width">
+            <mat-label>Autó törlesztés</mat-label>
+            <input type="number" min="0" matInput placeholder="Egyedi törlesztő érték" formControlName="carRepay">
+          </mat-form-field>
+          <mat-error>
+            <ng-container *ngIf="formGroup.hasError('required', 'carRepay')">
+              Érték megadása kötelező!
+            </ng-container>
+          </mat-error>
+          <div class="row space-between">
+            <button mat-raised-button (click)="repayCar()">Törleszt</button>
+            <button mat-raised-button (click)="autoRepayCar()">-130000</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</mat-card>
