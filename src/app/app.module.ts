@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,11 +13,20 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { registerLocaleData } from '@angular/common';
+import localeHu from '@angular/common/locales/hu';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NewPlayersDialogComponent } from './shared/new-players-dialog/new-players-dialog.component';
+
+registerLocaleData(localeHu, 'hu');
 @NgModule({
    declarations: [
       AppComponent,
       MainLayoutComponent,
-      PlayerCardComponent
+      PlayerCardComponent,
+      ConfirmDialogComponent,
+      NewPlayersDialogComponent
    ],
    imports: [
       BrowserModule,
@@ -30,11 +39,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
       MatRadioModule,
       MatInputModule,
       MatButtonModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatDialogModule
    ],
    providers: [],
    bootstrap: [
       AppComponent
-   ]
+   ],
+   entryComponents: [
+      ConfirmDialogComponent,
+      NewPlayersDialogComponent]
 })
 export class AppModule { }

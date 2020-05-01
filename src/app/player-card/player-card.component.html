@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="mat-elevation-z8">
   <mat-card-header>
     <mat-card-title>
       <div class="row">
@@ -6,7 +6,7 @@
           {{player.name}}
         </div>
         <div class="col no-padd">
-          {{player.actualMoney}}
+          {{player.actualMoney | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}
         </div>
       </div>
     </mat-card-title>
@@ -20,35 +20,34 @@
               <mat-label>Jóváírás</mat-label>
               <input type="number" min="0" matInput placeholder="Jóváírás értéke" formControlName="jovairas">
             </mat-form-field>
-            <button mat-raised-button (click)="add()">Jóváír</button>
             <mat-error>
-              <ng-container *ngIf="formGroup.hasError('required', 'jovairas')">
+              <ng-container *ngIf="formGroup.hasError('required', 'jovairas') && formGroup.hasError('min', 'jovairas')">
                 Érték megadása kötelező!
               </ng-container>
             </mat-error>
+            <button mat-raised-button color="primary" (click)="add()">Jóváír</button>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
               <mat-label>Terhelés</mat-label>
               <input type="number" min="0" matInput placeholder="Terhelés értéke" formControlName="terheles">
             </mat-form-field>
-            <button mat-raised-button (click)="subtract()">Terhelés</button>
             <mat-error>
-              <ng-container *ngIf="formGroup.hasError('required', 'terheles')">
+              <ng-container *ngIf="formGroup.hasError('required', 'terheles') && formGroup.hasError('min', 'terheles')">
                 Érték megadása kötelező!
               </ng-container>
             </mat-error>
+            <button mat-raised-button color="warn" (click)="subtract()">Terhelés</button>
           </div>
         </div>
       </form>
     </div>
   </mat-card-content>
   <div class="row space-evenly">
-    <button mat-raised-button (click)="addSevenPercent()">7%</button>
-    <button mat-raised-button (click)="addFifteenPercent()">15%</button>
+    <button mat-raised-button class="purple" (click)="addSevenPercent()">7%</button>
+    <button mat-raised-button class="purple" (click)="addFifteenPercent()">15%</button>
   </div>
   <hr>
-  <!-- TODO checkbox radio helyett! -->
   <div class="row space-evenly padding-t-b-1r">
     <mat-checkbox [(ngModel)]="player.insurances.retirementInsurance">Nyugdíjbizt</mat-checkbox>
     <mat-checkbox [(ngModel)]="player.insurances.childInsurance">Életbizt.</mat-checkbox>
@@ -66,10 +65,10 @@
     <form [formGroup]="leaseGroup" class="example-form">
       <div class="row">
         <div class="col">
-          <span>{{player.houseRepaymentLeft}}</span>
+          <span>{{player.houseRepaymentLeft | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}</span>
           <mat-form-field class="example-full-width">
             <mat-label>Ház törlesztés</mat-label>
-            <input type="number" min="0" matInput placeholder="Egyedi törlesztő érték" formControlName="houseRepay">
+            <input type="number" min="0" matInput placeholder="min.: 90000" formControlName="houseRepay">
           </mat-form-field>
           <mat-error>
             <ng-container *ngIf="formGroup.hasError('required', 'houseRepay')">
@@ -77,15 +76,15 @@
             </ng-container>
           </mat-error>
           <div class="row space-between">
-            <button mat-raised-button (click)="repayHouse()">Törleszt</button>
-            <button mat-raised-button (click)="autoRepayHouse()">-90000</button>
+            <button mat-raised-button color="primary" (click)="repayHouse()">Törleszt</button>
+            <button mat-raised-button color="warn" (click)="autoRepayHouse()">-90000</button>
           </div>
         </div>
         <div class="col">
-          <span>{{player.carRepaymentLeft}}</span>
+          <span>{{player.carRepaymentLeft | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}</span>
           <mat-form-field class="example-full-width">
             <mat-label>Autó törlesztés</mat-label>
-            <input type="number" min="0" matInput placeholder="Egyedi törlesztő érték" formControlName="carRepay">
+            <input type="number" min="0" matInput placeholder="min.: 130000" formControlName="carRepay">
           </mat-form-field>
           <mat-error>
             <ng-container *ngIf="formGroup.hasError('required', 'carRepay')">
@@ -93,8 +92,8 @@
             </ng-container>
           </mat-error>
           <div class="row space-between">
-            <button mat-raised-button (click)="repayCar()">Törleszt</button>
-            <button mat-raised-button (click)="autoRepayCar()">-130000</button>
+            <button mat-raised-button color="primary" (click)="repayCar()">Törleszt</button>
+            <button mat-raised-button color="warn" (click)="autoRepayCar()">-130000</button>
           </div>
         </div>
       </div>

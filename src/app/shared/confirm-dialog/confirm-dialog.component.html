@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Mentett játék elérhető!</h1>
+<div mat-dialog-content>
+  Az alábbi játékosokkal:
+  <ul>
+    <li *ngFor="let player of data">
+      {{player.name}}
+    </li>
+  </ul>
+  <p>
+    Folytatja?
+  </p>
+  <div class="row space-evenly">
+    <button mat-raised-button color="warn" class="padding-t-b1r" (click)="onCancel()">Nem</button>
+    <button mat-raised-button color="primary" class="padding-t-b1r" (click)="onApprove()">Igen</button>
+  </div>
+</div>
