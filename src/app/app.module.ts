@@ -13,13 +13,27 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, getCurrencySymbol } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NewPlayersDialogComponent } from './shared/new-players-dialog/new-players-dialog.component';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 
 registerLocaleData(localeHu, 'hu');
+
+export const customCurrencyMaskConfig = {
+   align: 'right',
+   allowNegative: true,
+   allowZero: true,
+   decimal: ',',
+   precision: 0,
+   prefix: '',
+   suffix: ' Ft',
+   thousands: '.',
+   nullable: true,
+   inputMode: CurrencyMaskInputMode.NATURAL
+};
 @NgModule({
    declarations: [
       AppComponent,
@@ -40,7 +54,8 @@ registerLocaleData(localeHu, 'hu');
       MatInputModule,
       MatButtonModule,
       MatCheckboxModule,
-      MatDialogModule
+      MatDialogModule,
+      NgxCurrencyModule.forRoot(customCurrencyMaskConfig)
    ],
    providers: [],
    bootstrap: [
