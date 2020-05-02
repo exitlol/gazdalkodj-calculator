@@ -72,7 +72,7 @@ export class PlayerCardComponent implements OnInit {
   }
 
   repayHouse() {
-    if (this.player.houseRepaymentLeft > this.leaseGroup.controls['houseRepay'].value) {
+    if (this.player.houseRepaymentLeft >= this.leaseGroup.controls['houseRepay'].value) {
       this.player.houseRepaymentLeft -= this.leaseGroup.controls['houseRepay'].value;
       this.player.actualMoney -= this.leaseGroup.controls['houseRepay'].value;
       this.resetControl(this.leaseGroup, 'houseRepay');
@@ -81,7 +81,7 @@ export class PlayerCardComponent implements OnInit {
   }
 
   repayCar() {
-    if (this.player.carRepaymentLeft > this.leaseGroup.controls['carRepay'].value) {
+    if (this.player.carRepaymentLeft >= this.leaseGroup.controls['carRepay'].value) {
       this.player.actualMoney -= this.leaseGroup.controls['carRepay'].value;
       this.player.carRepaymentLeft -= this.leaseGroup.controls['carRepay'].value;
       this.resetControl(this.leaseGroup, 'carRepay');
@@ -92,7 +92,7 @@ export class PlayerCardComponent implements OnInit {
 
 
   autoRepayHouse() {
-    if (this.player.houseRepaymentLeft > Constants.REPAY_HOUSE) {
+    if (this.player.houseRepaymentLeft >= Constants.REPAY_HOUSE) {
       this.player.actualMoney -= Constants.REPAY_HOUSE;
       this.player.houseRepaymentLeft -= Constants.REPAY_HOUSE;
       this.resetControl(this.leaseGroup, 'houseRepay');
@@ -101,7 +101,7 @@ export class PlayerCardComponent implements OnInit {
   }
 
   autoRepayCar() {
-    if (this.player.carRepaymentLeft > Constants.REPAY_CAR) {
+    if (this.player.carRepaymentLeft >= Constants.REPAY_CAR) {
       this.player.actualMoney -= Constants.REPAY_CAR;
       this.player.carRepaymentLeft -= Constants.REPAY_CAR;
       this.resetControl(this.leaseGroup, 'carRepay');
