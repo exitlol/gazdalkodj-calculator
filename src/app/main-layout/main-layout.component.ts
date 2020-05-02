@@ -29,9 +29,10 @@ export class MainLayoutComponent implements OnInit {
       const key = window.localStorage.key(i);
       listOfplayers.push(JSON.parse(window.localStorage.getItem(key)));
     }
-
-    if (listOfplayers.length >= 2) {
+    if (listOfplayers.length > 1) {
       this.openDialog(listOfplayers);
+    } else {
+      this.openNewPlayerDialog();
     }
   }
 
@@ -53,11 +54,15 @@ export class MainLayoutComponent implements OnInit {
       if (res === ConfirmDialog.CONFIRMED) {
         this.players = players;
       } else {
-        const newPlayerDialog = this.dialog.open(NewPlayersDialogComponent);
-        newPlayerDialog.afterClosed().subscribe(newPlayers => {
-          this.buildNewPlayers(newPlayers);
-        });
+        this.openNewPlayerDialog();
       }
+    });
+  }
+
+  openNewPlayerDialog() {
+    const newPlayerDialog = this.dialog.open(NewPlayersDialogComponent);
+    newPlayerDialog.afterClosed().subscribe(newPlayers => {
+      this.buildNewPlayers(newPlayers);
     });
   }
 

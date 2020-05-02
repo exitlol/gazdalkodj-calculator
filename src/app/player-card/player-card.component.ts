@@ -87,16 +87,21 @@ export class PlayerCardComponent implements OnInit {
 
 
   autoRepayHouse() {
-    this.player.houseRepaymentLeft -= Constants.REPAY_HOUSE;
-    this.resetControl(this.leaseGroup, 'houseRepay');
-    this.emitPlayer();
-
+    if (this.player.houseRepaymentLeft > Constants.REPAY_HOUSE) {
+      this.player.actualMoney -= Constants.REPAY_HOUSE;
+      this.player.houseRepaymentLeft -= Constants.REPAY_HOUSE;
+      this.resetControl(this.leaseGroup, 'houseRepay');
+      this.emitPlayer();
+    }
   }
 
   autoRepayCar() {
-    this.player.carRepaymentLeft -= Constants.REPAY_CAR;
-    this.resetControl(this.leaseGroup, 'carRepay');
-    this.emitPlayer();
+    if (this.player.carRepaymentLeft > Constants.REPAY_CAR) {
+      this.player.actualMoney -= Constants.REPAY_CAR;
+      this.player.carRepaymentLeft -= Constants.REPAY_CAR;
+      this.resetControl(this.leaseGroup, 'carRepay');
+      this.emitPlayer();
+    }
   }
 
 
