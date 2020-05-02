@@ -18,7 +18,7 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <mat-label>Jóváírás</mat-label>
-              <input type="number" min="0" matInput placeholder="Jóváírás értéke" formControlName="jovairas">
+              <input autocomplete="off" matInput currencyMask placeholder="Jóváírás értéke" formControlName="jovairas">
             </mat-form-field>
             <mat-error>
               <ng-container *ngIf="formGroup.hasError('required', 'jovairas') && formGroup.hasError('min', 'jovairas')">
@@ -30,7 +30,7 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <mat-label>Terhelés</mat-label>
-              <input type="number" min="0" matInput placeholder="Terhelés értéke" formControlName="terheles">
+              <input autocomplete="off" currencyMask matInput placeholder="Terhelés értéke" formControlName="terheles">
             </mat-form-field>
             <mat-error>
               <ng-container *ngIf="formGroup.hasError('required', 'terheles') && formGroup.hasError('min', 'terheles')">
@@ -68,7 +68,7 @@
           <span>{{player.houseRepaymentLeft | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}</span>
           <mat-form-field class="example-full-width">
             <mat-label>Ház törlesztés</mat-label>
-            <input type="number" min="0" matInput placeholder="min.: 90000" formControlName="houseRepay">
+            <input currencyMask autocomplete="off" matInput placeholder="min.: 90000" formControlName="houseRepay">
           </mat-form-field>
           <mat-error>
             <ng-container *ngIf="formGroup.hasError('required', 'houseRepay')">
@@ -84,7 +84,7 @@
           <span>{{player.carRepaymentLeft | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}</span>
           <mat-form-field class="example-full-width">
             <mat-label>Autó törlesztés</mat-label>
-            <input type="number" min="0" matInput placeholder="min.: 130000" formControlName="carRepay">
+            <input currencyMask autocomplete="off" matInput placeholder="min.: 130000" formControlName="carRepay">
           </mat-form-field>
           <mat-error>
             <ng-container *ngIf="formGroup.hasError('required', 'carRepay')">
