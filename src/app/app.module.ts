@@ -35,34 +35,31 @@ export const customCurrencyMaskConfig = {
    inputMode: CurrencyMaskInputMode.NATURAL
 };
 @NgModule({
-   declarations: [
-      AppComponent,
-      MainLayoutComponent,
-      PlayerCardComponent,
-      ConfirmDialogComponent,
-      NewPlayersDialogComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      MatCardModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatRadioModule,
-      MatInputModule,
-      MatButtonModule,
-      MatCheckboxModule,
-      MatDialogModule,
-      NgxCurrencyModule.forRoot(customCurrencyMaskConfig)
-   ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ],
-   entryComponents: [
-      ConfirmDialogComponent,
-      NewPlayersDialogComponent]
+    declarations: [
+        AppComponent,
+        MainLayoutComponent,
+        PlayerCardComponent,
+        ConfirmDialogComponent,
+        NewPlayersDialogComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatRadioModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        NgxCurrencyModule.forRoot(customCurrencyMaskConfig)
+    ],
+    providers: [],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

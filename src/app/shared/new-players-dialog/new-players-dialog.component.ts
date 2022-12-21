@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-players-dialog',
@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class NewPlayersDialogComponent implements OnInit {
 
-  newPlayersFormGroup: FormGroup;
+  newPlayersFormGroup: UntypedFormGroup;
   playerNames: Array<string> = [];
   readonly playerNumbers = [2, 3, 4, 5, 6];
   actualPlayerNum: number[];
@@ -22,9 +22,9 @@ export class NewPlayersDialogComponent implements OnInit {
   }
 
   private buildform() {
-    this.newPlayersFormGroup = new FormGroup({});
+    this.newPlayersFormGroup = new UntypedFormGroup({});
     this.actualPlayerNum.forEach(numOfPlayer => {
-      const control = new FormControl(''
+      const control = new UntypedFormControl(''
         , Validators.required);
       control.valueChanges.subscribe(value => this.playerNames[numOfPlayer] = value);
       this.newPlayersFormGroup.addControl(numOfPlayer.toString(), control);

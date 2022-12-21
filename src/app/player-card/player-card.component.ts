@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Player } from '../shared/models/player.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Constants } from '../shared/constants';
 
 @Component({
@@ -10,8 +10,8 @@ import { Constants } from '../shared/constants';
 })
 export class PlayerCardComponent implements OnInit {
 
-  formGroup: FormGroup;
-  leaseGroup: FormGroup;
+  formGroup: UntypedFormGroup;
+  leaseGroup: UntypedFormGroup;
 
   @Input() player: Player;
   @Output() clickHappened = new EventEmitter<Player>();
@@ -19,13 +19,13 @@ export class PlayerCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.formGroup = new FormGroup({
-      jovairas: new FormControl(null, [Validators.required, Validators.min(500)]),
-      terheles: new FormControl(null, [Validators.required, Validators.min(500)])
+    this.formGroup = new UntypedFormGroup({
+      jovairas: new UntypedFormControl(null, [Validators.required, Validators.min(500)]),
+      terheles: new UntypedFormControl(null, [Validators.required, Validators.min(500)])
     });
-    this.leaseGroup = new FormGroup({
-      houseRepay: new FormControl(null, [Validators.required, Validators.min(90000)]),
-      carRepay: new FormControl(null, [Validators.required, Validators.min(130000)])
+    this.leaseGroup = new UntypedFormGroup({
+      houseRepay: new UntypedFormControl(null, [Validators.required, Validators.min(90000)]),
+      carRepay: new UntypedFormControl(null, [Validators.required, Validators.min(130000)])
     });
   }
 
@@ -110,7 +110,7 @@ export class PlayerCardComponent implements OnInit {
   }
 
 
-  private resetControl(group: FormGroup, controlName: string) {
+  private resetControl(group: UntypedFormGroup, controlName: string) {
     group.controls[controlName].reset();
     group.controls[controlName].markAsPristine();
     group.controls[controlName].markAsUntouched();
