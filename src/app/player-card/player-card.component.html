@@ -3,100 +3,274 @@
     <mat-card-title>
       <div class="row">
         <div class="col no-padd">
-          {{player.name}}
+          {{ player.name }}
         </div>
         <div class="col no-padd">
-          {{player.actualMoney | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}
+          {{
+            player.actualMoney
+              | currency : "HUF" : "symbol-narrow" : "1.0-0" : "hu"
+          }}
         </div>
       </div>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div class="container-flex">
+    <div class="container-flex p-2">
       <form class="example-form" [formGroup]="formGroup">
         <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <mat-label>Jóváírás</mat-label>
-              <input autocomplete="off" matInput currencyMask placeholder="Jóváírás értéke" formControlName="jovairas">
-            </mat-form-field>
-            <mat-error>
-              <ng-container *ngIf="formGroup.hasError('required', 'jovairas') && formGroup.hasError('min', 'jovairas')">
-                Érték megadása kötelező!
-              </ng-container>
-            </mat-error>
-            <button mat-raised-button color="primary" (click)="add()">Jóváír</button>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="example-full-width">
+                <mat-label>Jóváírás</mat-label>
+                <input
+                  autocomplete="off"
+                  matInput
+                  currencyMask
+                  placeholder="Jóváírás értéke"
+                  formControlName="jovairas"
+                />
+              </mat-form-field>
+              <mat-error>
+                <ng-container
+                  *ngIf="
+                    formGroup.hasError('required', 'jovairas') &&
+                    formGroup.hasError('min', 'jovairas')
+                  "
+                >
+                  Érték megadása kötelező!
+                </ng-container>
+              </mat-error>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <button mat-raised-button color="primary" (click)="add()">
+                  Jóváír
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <mat-label>Terhelés</mat-label>
-              <input autocomplete="off" currencyMask matInput placeholder="Terhelés értéke" formControlName="terheles">
-            </mat-form-field>
-            <mat-error>
-              <ng-container *ngIf="formGroup.hasError('required', 'terheles') && formGroup.hasError('min', 'terheles')">
-                Érték megadása kötelező!
-              </ng-container>
-            </mat-error>
-            <button mat-raised-button color="warn" (click)="subtract()">Terhelés</button>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="example-full-width">
+                <mat-label>Terhelés</mat-label>
+                <input
+                  autocomplete="off"
+                  currencyMask
+                  matInput
+                  placeholder="Terhelés értéke"
+                  formControlName="terheles"
+                />
+              </mat-form-field>
+              <mat-error>
+                <ng-container
+                  *ngIf="
+                    formGroup.hasError('required', 'terheles') &&
+                    formGroup.hasError('min', 'terheles')
+                  "
+                >
+                  Érték megadása kötelező!
+                </ng-container>
+              </mat-error>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <button mat-raised-button color="warn" (click)="subtract()">
+                  Terhelés
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </form>
-    </div>
-  </mat-card-content>
-  <div class="row space-evenly">
-    <button mat-raised-button class="purple" (click)="addSevenPercent()">7%</button>
-    <button mat-raised-button class="purple" (click)="addFifteenPercent()">15%</button>
-  </div>
-  <hr>
-  <div class="row space-evenly padding-t-b-1r">
-    <mat-checkbox [(ngModel)]="player.insurances.retirementInsurance">Nyugdíjbizt</mat-checkbox>
-    <mat-checkbox [(ngModel)]="player.insurances.childInsurance">Életbizt.</mat-checkbox>
-  </div>
-  <div class="row space-evenly padding-t-b-1r">
-    <mat-checkbox [(ngModel)]="player.insurances.homeInsurance">Lakásbizt.</mat-checkbox>
-    <mat-checkbox [(ngModel)]="player.insurances.casco">Casco</mat-checkbox>
-  </div>
-  <div class="row space-evenly padding-t-b-1r">
-    <mat-checkbox [(ngModel)]="player.hasMorgage">Lakáshitel</mat-checkbox>
-    <mat-checkbox [(ngModel)]="player.hasCarLeased">Autó hitel</mat-checkbox>
-  </div>
-  <ng-container *ngIf="player.hasMorgage || player.hasCarLeased">
-    <hr>
-    <form [formGroup]="leaseGroup" class="example-form">
-      <div class="row">
-        <div class="col">
-          <span>{{player.houseRepaymentLeft | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}</span>
-          <mat-form-field class="example-full-width">
-            <mat-label>Ház törlesztés</mat-label>
-            <input currencyMask autocomplete="off" matInput placeholder="min.: 90000" formControlName="houseRepay">
-          </mat-form-field>
-          <mat-error>
-            <ng-container *ngIf="formGroup.hasError('required', 'houseRepay')">
-              Érték megadása kötelező!
-            </ng-container>
-          </mat-error>
-          <div class="row space-between">
-            <button mat-raised-button color="primary" (click)="repayHouse()">Törleszt</button>
-            <button mat-raised-button color="warn" (click)="autoRepayHouse()">-90000</button>
+
+      <div class="row pt-4">
+        <div class="col-6">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="onRound(RoundType.REGULAR)"
+              >
+                Sima kör
+              </button>
+            </div>
           </div>
         </div>
-        <div class="col">
-          <span>{{player.carRepaymentLeft | currency:'HUF':'symbol-narrow':'1.0-0':'hu'}}</span>
-          <mat-form-field class="example-full-width">
-            <mat-label>Autó törlesztés</mat-label>
-            <input currencyMask autocomplete="off" matInput placeholder="min.: 130000" formControlName="carRepay">
-          </mat-form-field>
-          <mat-error>
-            <ng-container *ngIf="formGroup.hasError('required', 'carRepay')">
-              Érték megadása kötelező!
-            </ng-container>
-          </mat-error>
-          <div class="row space-between">
-            <button mat-raised-button color="primary" (click)="repayCar()">Törleszt</button>
-            <button mat-raised-button color="warn" (click)="autoRepayCar()">-130000</button>
+        <div class="col-6">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="onRound(RoundType.START_ROUND)"
+              >
+                START mezós kör
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </form>
-  </ng-container>
+
+      <div class="row pt-4">
+        <div class="col-6">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <button
+                mat-raised-button
+                class="purple"
+                (click)="addSevenPercent()"
+              >
+                7%
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <button
+                mat-raised-button
+                class="purple"
+                (click)="addFifteenPercent()"
+              >
+                15%
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="row justify-content-between py-3">
+        <div class="col-6 d-flex justify-content-center">
+          <mat-checkbox
+            [value]="player.insurances.retirementInsurance"
+            [checked]="player.insurances.retirementInsurance"
+            (change)="onCheckboxChange($event, CheckboxType.RETIREMENT)"
+            >Nyugdíjbizt</mat-checkbox
+          >
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <mat-checkbox
+            [value]="player.insurances.childInsurance"
+            [checked]="player.insurances.childInsurance"
+            (change)="onCheckboxChange($event, CheckboxType.CHILD)"
+            >Életbizt.</mat-checkbox
+          >
+        </div>
+      </div>
+      <div class="row justify-content-between padding-t-b-1r">
+        <div class="col-6 d-flex justify-content-center">
+          <mat-checkbox
+            (change)="onCheckboxChange($event, CheckboxType.HOME)"
+            [value]="player.insurances.homeInsurance"
+            [checked]="player.insurances.homeInsurance"
+            >Lakásbizt.</mat-checkbox
+          >
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <mat-checkbox
+            [value]="player.insurances.casco"
+            [checked]="player.insurances.casco"
+            (change)="onCheckboxChange($event, CheckboxType.CASCO)"
+            >Casco</mat-checkbox
+          >
+        </div>
+      </div>
+      <div class="row justify-content-between padding-t-b-1r">
+        <div class="col-6 d-flex justify-content-center">
+          <mat-checkbox
+            [value]="player.hasMorgage"
+            [checked]="player.hasMorgage"
+            (change)="onCheckboxChange($event, CheckboxType.MORGAGE)"
+            >Lakáshitel</mat-checkbox
+          >
+        </div>
+
+        <div class="col-6 d-flex justify-content-center">
+          <mat-checkbox
+            [value]="player.hasCarLeased"
+            [checked]="player.hasCarLeased"
+            (change)="onCheckboxChange($event, CheckboxType.CAR_LEASE)"
+            >Autó hitel</mat-checkbox
+          >
+        </div>
+      </div>
+      <ng-container *ngIf="player.hasMorgage || player.hasCarLeased">
+        <hr />
+        <form [formGroup]="leaseGroup" class="example-form">
+          <div class="row">
+            <div class="col">
+              <span>{{
+                player.houseRepaymentLeft
+                  | currency : "HUF" : "symbol-narrow" : "1.0-0" : "hu"
+              }}</span>
+              <mat-form-field class="example-full-width">
+                <mat-label>Ház törlesztés</mat-label>
+                <input
+                  currencyMask
+                  autocomplete="off"
+                  matInput
+                  placeholder="min.: 90000"
+                  formControlName="houseRepay"
+                />
+              </mat-form-field>
+              <mat-error>
+                <ng-container
+                  *ngIf="formGroup.hasError('required', 'houseRepay')"
+                >
+                  Érték megadása kötelező!
+                </ng-container>
+              </mat-error>
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="repayHouse()"
+                  >
+                    Törleszt
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <span>{{
+                player.carRepaymentLeft
+                  | currency : "HUF" : "symbol-narrow" : "1.0-0" : "hu"
+              }}</span>
+              <mat-form-field class="example-full-width">
+                <mat-label>Autó törlesztés</mat-label>
+                <input
+                  currencyMask
+                  autocomplete="off"
+                  matInput
+                  placeholder="min.: 130000"
+                  formControlName="carRepay"
+                />
+              </mat-form-field>
+              <mat-error>
+                <ng-container
+                  *ngIf="formGroup.hasError('required', 'carRepay')"
+                >
+                  Érték megadása kötelező!
+                </ng-container>
+              </mat-error>
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="repayCar()"
+                  >
+                    Törleszt
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+  </mat-card-content>
 </mat-card>

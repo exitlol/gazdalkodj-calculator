@@ -3,11 +3,13 @@
   <div class="row" *ngIf="!actualPlayerNum">
     <div class="col">
       <div class="row">
-        <p>Játékosok száma: </p>
+        <p>Játékosok száma:</p>
       </div>
-      <div class="row">
-        <div *ngFor="let num of playerNumbers, let i = index" class="col">
-          <button mat-fab color="primary" (click)="numOfPlayersSelected(num)">{{num}}</button>
+      <div class="row mb-2">
+        <div *ngFor="let num of playerNumbers; let i = index" class="col">
+          <button mat-fab color="primary" (click)="numOfPlayersSelected(num)">
+            {{ num }}
+          </button>
         </div>
       </div>
     </div>
@@ -17,14 +19,28 @@
       <div class="row">
         <div *ngFor="let num of actualPlayerNum" class="col">
           <mat-form-field class="example-full-width">
-            <input type="text" matInput placeholder="Játékos neve" formControlName="{{num}}">
+            <input
+              type="text"
+              matInput
+              placeholder="Játékos neve"
+              formControlName="{{ num }}"
+            />
           </mat-form-field>
         </div>
       </div>
     </form>
   </ng-container>
-  <div class="row space-evenly" *ngIf="actualPlayerNum">
-    <button mat-raised-button color="primary" class="padding-t-b1r" [disabled]="newPlayersFormGroup.invalid"
-      (click)="onApprove()">Kezdés</button>
+  <div class="row justify-content-center" *ngIf="actualPlayerNum">
+    <div class="col-auto">
+      <button
+        mat-raised-button
+        color="primary"
+        class="padding-t-b1r"
+        [disabled]="newPlayersFormGroup.invalid"
+        (click)="onApprove()"
+      >
+        Kezdés
+      </button>
+    </div>
   </div>
 </div>

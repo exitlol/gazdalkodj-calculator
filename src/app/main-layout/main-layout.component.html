@@ -1,5 +1,8 @@
 <div class="row">
-  <div *ngFor="let player of players, let i = index" class="col">
-    <app-player-card [player]="player" (clickHappened)="saveToLocaleStorage($event, i)"></app-player-card>
+  <div *ngFor="let player of players; let i = index" class="col m-3">
+    <app-player-card
+      [player]="player"
+      (clickHappened)="saveToLocaleStorage($event, i)"
+    ></app-player-card>
   </div>
 </div>
